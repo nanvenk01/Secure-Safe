@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fingerprint Auth</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Fingerprint Authentication System</h1>
+
+  <p>Welcome, {{ session['email'] }} ({{ session['role'] }})</p>
+
+  <button onclick="postAction('/validate')">Validate Fingerprint</button>
+  <a href="/enroll_form"><button>Enroll Fingerprint</button></a>
+  <a href="/delete_form"><button>Delete Fingerprint</button></a>
+  <button onclick="postAction('/closedoor')">Close and Lock Door</button>
+
+  <br><br>
+  <a href="/logout">Logout</a>
+
+  <!-- Toast container -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Toast + postAction logic -->
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = "toast show";
+      setTimeout(() => {
+        toast.className = toast.className.replace("show", "");
+      }, 3000);
+    }
+
+    function postAction(endpoint) {
+      fetch(endpoint, { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          const msg = data.message || (data.success ? 'Success' : 'Failed');
+          showToast(msg);
+        });
+    }
+  </script>
+</body>
+</html>

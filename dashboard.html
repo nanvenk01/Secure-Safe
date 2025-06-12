@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css"> <!--og-->
+</head>
+<body>
+  <h1>Welcome, {{ session['email'] }}</h1>
+  <p>Your role: {{ session['role'] }}</p>
+
+  {% if session['role'] == 'root' %}
+    <h2>Pending Users</h2>
+    {% if pending_users %}
+      <ul>
+        {% for user in pending_users %}
+          <li>{{ user.email }}
+            <a href="/approve_user/{{ user.doc_id }}">Approve</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No pending users</p>
+    {% endif %}
+    <a href="/admin_dashboard"><button>Admin Dashboard</button></a>
+  {% else %}
+    <h2>Fingerprint Access</h2>
+    <a href="/index"><button>Go to Fingerprint Page</button></a>
+  {% endif %}
+
+  <br><a href="/logout"><button>Logout</button></a>
+  <div id="toast" class="toast"></div>
+  <script>
+    {% if message %}
+      const toast = document.getElementById("toast");
+      toast.textContent = "{{ message }}";
+      toast.className = "toast show";
+      setTimeout(() => {
+        toast.className = toast.className.replace("show", "");
+      }, 3000);
+    {% endif %}
+  </script>
+</body>
+</html>
+<!--<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Welcome, {{ session['email'] }}</h1>
+  <p>Your role: {{ session['role'] }}</p>
+
+  {% if session['role'] == 'root' %}
+    <h2>Pending Users</h2>
+    {% if pending_users %}
+      <ul>
+        {% for user in pending_users %}
+          <li>{{ user.email }}
+            <a href="/approve_user/{{ user.doc_id }}">Approve</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No pending users</p>
+    {% endif %}
+  {% else %}
+    <h2>Fingerprint Access</h2>
+    <a href="/index"><button>Go to Fingerprint Page</button></a>
+
+  {% endif %}
+
+  <br><a href="/logout"><button>Logout</button></a>
+  <div id="toast" class="toast"></div>
+   <script>
+     {% if message %}
+       const toast = document.getElementById("toast");
+       toast.textContent = "{{ message }}";
+       toast.className = "toast show";
+       setTimeout(() => {
+	 toast.className = toast.className.replace("show", "");
+       }, 3000);
+     {% endif %}
+   </script>
+
+</body>
+</html> -->

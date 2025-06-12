@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<link rel="stylesheet" href="/static/style.css">
+<html>
+<head>
+  <title>Status</title>
+</head>
+<body>
+  <h1>{{ message }}</h1>
+  <br>
+  <a href="/index">Return to Dashboard</a>
+  <div id="toast" class="toast"></div>
+   <script>
+     {% if message %}
+       const toast = document.getElementById("toast");
+       toast.textContent = "{{ message }}";
+       toast.className = "toast show";
+       setTimeout(() => {
+	 toast.className = toast.className.replace("show", "");
+       }, 3000);
+     {% endif %}
+   </script>
+</body>
+</html>

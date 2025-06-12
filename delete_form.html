@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delete Fingerprint</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <form method="POST" action="/do_delete">
+    <h1>Delete Fingerprint</h1>
+    <input type="text" name="name" placeholder="Name to Delete" required>
+    <button type="submit">Delete</button>
+    <br><a href="/index">Cancel</a>
+  </form>
+  <div id="toast" class="toast"></div>
+   <script>
+     {% if message %}
+       const toast = document.getElementById("toast");
+       toast.textContent = "{{ message }}";
+       toast.className = "toast show";
+       setTimeout(() => {
+	 toast.className = toast.className.replace("show", "");
+       }, 3000);
+     {% endif %}
+   </script>
+
+</body>
+</html>

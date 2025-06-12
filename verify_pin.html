@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Enter PIN</title></head>
+<link rel="stylesheet" href="/static/style.css">
+<body>
+  <h2>Enter the PIN sent to your email</h2>
+  {% if error %}
+    <p style="color:red;">{{ error }}</p>
+  {% endif %}
+  <form method="post">
+    <input type="text" name="pin" placeholder="6-digit PIN" required pattern="\d{6}">
+    <button type="submit">Verify</button>
+  </form>
+  <div id="toast" class="toast"></div>
+   <script>
+     {% if message %}
+       const toast = document.getElementById("toast");
+       toast.textContent = "{{ message }}";
+       toast.className = "toast show";
+       setTimeout(() => {
+	 toast.className = toast.className.replace("show", "");
+       }, 3000);
+     {% endif %}
+   </script>
+
+</body>
+</html>
+
+

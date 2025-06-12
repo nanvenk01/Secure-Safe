@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, <strong>{{ session['email'] }}</strong></p>
+
+    <h2>Recent Login Activity</h2>
+    {% if logins %}
+      <table>
+        <thead>
+          <tr>
+            <th>User Email</th>
+            <th>Login Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for login in logins %}
+            <tr>
+              <td>{{ login.email }}</td>
+              <td>{{ login.timestamp }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No login activity found.</p>
+    {% endif %}
+
+    <br>
+    <a href="/dashboard"><button>Back to Main Dashboard</button></a>
+    <a href="/logout"><button>Logout</button></a>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script>
+    {% if message %}
+      const toast = document.getElementById("toast");
+      toast.textContent = "{{ message }}";
+      toast.className = "toast show";
+      setTimeout(() => {
+        toast.className = toast.className.replace("show", "");
+      }, 3000);
+    {% endif %}
+  </script>
+</body>
+</html>
